@@ -13,8 +13,8 @@ cd build
 cmake ^
     -S %SRC_DIR% ^
     -B . ^
-    -G "Unix Makefiles" ^
-    -DCMAKE_MAKE_PROGRAM="C:/ProgramData/chocolatey/bin/make.exe" ^
+    -G "MinGW Makefiles" ^
+    -DCMAKE_MAKE_PROGRAM="C:/ProgramData/chocolatey/bin/mingw32-make.exe" ^
     -DCMAKE_FIND_LIBRARY_SUFFIXES=".a" ^
     -DCMAKE_BUILD_TYPE="RelWithDebInfo" ^
     -DCMAKE_C_FLAGS="-static" ^
@@ -22,6 +22,7 @@ cmake ^
     -DCMAKE_Fortran_FLAGS="-static" ^
     -DBUILD_SHARED_LIBS=OFF ^
     -DDOUBLE_PRECISION=OFF ^
+    -DVARIABLE_TRACKING=OFF ^
     -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
     -DCMAKE_INSTALL_PREFIX="%LIBRARY_PREFIX%" ^
     -DCMAKE_INSTALL_LIBDIR=lib ^
@@ -52,7 +53,7 @@ REM    -DBUILD_OPENFAST_CPP_API=ON
 
 if errorlevel 1 exit /b 1
 	
-cmake --build . -j 1
+cmake --build . -j %CPU_COUNT%
 if errorlevel 1 exit /b 1
 
 cmake --install .
